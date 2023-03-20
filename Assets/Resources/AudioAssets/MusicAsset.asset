@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3db3e58a816dd45847057c715d9b37, type: 3}
+  m_Name: MusicAsset
+  m_EditorClassIdentifier: 
+  audioList:
+  - Key: BackGround
+    Value: {fileID: 8300000, guid: ae95d0bbd86d7014bb46cde21117a2b7, type: 3}

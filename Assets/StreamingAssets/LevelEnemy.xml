@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <level id="0">                              <!--  关卡名  -->
+        <getCostValue>0.5</getCostValue>        <!--  每次获得费用的值  -->
+        <getCostInterval>1</getCostInterval>    <!--  获得费用的间隔  -->
+        <unLoop>                                <!-- 不循环阶段 -->
+            <costBase>                          <!-- 基于费用，费用满了立即召唤 -->
+                <!--  id：单位id、time：从游戏开始的时间、召唤模式：数字为路径编号（从0开始），strong:玩家战力最强的路,week：玩家战力最弱的路  -->
+                <spwan id="10001" time="2">0</spwan>
+                <spwan id="10001" time="10">1</spwan>
+                <spwan id="10001" time="18">strong</spwan>
+                <spwan id="10001" time="26">week</spwan>
+            </costBase>
+        </unLoop>
+        <loop>                                  <!-- 循环阶段 -->
+            <costBase>
+                <!-- time:每次循坏开始后的时间-->
+                <spwan id="10001" time="6">1</spwan>
+                <spwan id="10001" time="12">0</spwan>
+            </costBase>
+        </loop>
+    </level>
+    <level id="1">                              <!--  关卡名  -->
+        <getCostValue>0.5</getCostValue>        <!--  每次获得费用的值  -->
+        <getCostInterval>1</getCostInterval>    <!--  获得费用的间隔  -->
+        <unLoop>                                <!-- 不循环阶段 -->
+            <costBase>                          <!-- 基于费用，费用满了立即召唤 -->
+                <!--  id：单位id、time：从游戏开始的时间、召唤模式：数字为路径编号（从0开始），strong:玩家战力最强的路,week：玩家战力最弱的路  -->
+                <spwan id="10001" time="2">0</spwan>
+                <spwan id="10001" time="4">0</spwan>
+                <spwan id="10001" time="6">strong</spwan>
+                <spwan id="10001" time="10">week</spwan>
+            </costBase>
+        </unLoop>
+        <loop>                                  <!-- 循环阶段 -->
+            <costBase>
+                <!-- time:非循环模式结束后开始计算的时间-->
+                <spwan id="10001" time="2">0</spwan>
+                <spwan id="10001" time="4">0</spwan>
+            </costBase>
+        </loop>
+    </level>
+</root>
