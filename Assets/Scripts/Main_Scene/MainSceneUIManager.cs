@@ -15,7 +15,7 @@ public class MainSceneUIManager : MonoBehaviour
 
     private void Start()
     {
-        //startGame.onClick.AddListener(() => { })
+        startGame.onClick.AddListener(() => { Loader.Load(Loader.Scene.LevelChose); });
         quitGame.onClick.AddListener(() => { Application.Quit(); });
         handBook.onClick.AddListener(() => { Loader.Load(Loader.Scene.IllustratehandBook); });
         setting.onClick.AddListener(() => { settingCanvas.SetActive(true); });

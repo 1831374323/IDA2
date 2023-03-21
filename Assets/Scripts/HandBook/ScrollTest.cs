@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using SY_Tool;
 using System;
 using System.Collections;
@@ -62,15 +63,13 @@ public class ScrollTest : MonoBehaviour
         startPos.y=transform.GetChild(0).localPosition.y;
         endPos.y=transform.GetChild(6).localPosition.y;
     }
-    void Update()
+
+    public void ButtonUseMoveDown()
     {
-        //按下键盘左箭头（向下移动）
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
             //确保上次移动完成
             if (value == 0)
             {
-                
+
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     //记录下所有当前子物体的起始位置
@@ -79,24 +78,38 @@ public class ScrollTest : MonoBehaviour
                 Move = true;
                 StartCoroutine(MoveD());//开启协程
             }
-            
+    }
 
+    public void ButtonUseMoveUp()
+    {
+        if (value == 0)
+        {
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                vc[i] = transform.GetChild(i).localPosition;
+
+            }
+            Move = true;
+            StartCoroutine(MoveU());
         }
+    }
+
+
+    void Update()
+    {
+        //按下键盘下箭头（向下移动）
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {  
+            ButtonUseMoveDown();
+        }
+
+       
         //按下键盘右箭头（向上移动）
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (value == 0)
-            {
-                
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    vc[i] = transform.GetChild(i).localPosition;
 
-                }
-                Move = true;
-                StartCoroutine(MoveU());
-            }
-            
+            ButtonUseMoveUp(); 
         }
     }
     /// <summary>
