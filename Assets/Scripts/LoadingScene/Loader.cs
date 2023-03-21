@@ -10,7 +10,8 @@ public static class Loader
     {
         MainScene,
         LoadScene,
-        IllustratehandBook
+        IllustratehandBook,
+        LevelChose
     }
     public static Scene targetScene;//目标场景
 
@@ -18,7 +19,7 @@ public static class Loader
     public static void Load(Scene targetScene)
     {
         Loader.targetScene = targetScene;//复制
-        SceneManager.LoadScene(Scene.LoadScene.ToString());
+
         SceneManager.LoadScene(targetScene.ToString());
     }
 
