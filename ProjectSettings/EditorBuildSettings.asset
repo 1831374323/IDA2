@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelChose.unity
     guid: 9b20daee30c1f044aaf1af33146eaa38
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: f6b12e473b361834e85c989727e519f1
+  - enabled: 1
+    path: Assets/Scenes/IllustrateHandBook.unity
+    guid: af955ec5819763944acc64e97481668e
+  - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: 34a12274d48253e489120c15ad77982b
   m_configObjects: {}

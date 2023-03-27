@@ -25,10 +25,7 @@ public class HandbookStatus : MonoBehaviour
             Destroy(gameObject);
         }
 
-        DataInit();
-        transform.Find("Name").GetComponent<Text>().text = Convert.ToString(dr["name"]);
-        SetProperty();
-        SetDescription();
+       
     }
     private void DataInit()//初始化数据，找到相应sprite
     {
