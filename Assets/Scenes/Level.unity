@@ -735,9 +735,9 @@ GameObject:
   m_Component:
   - component: {fileID: 196485084}
   - component: {fileID: 196485088}
-  - component: {fileID: 196485087}
   - component: {fileID: 196485086}
   - component: {fileID: 196485085}
+  - component: {fileID: 196485089}
   m_Layer: 5
   m_Name: ESC
   m_TagString: Untagged
@@ -762,8 +762,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -920, y: 501.33}
-  m_SizeDelta: {x: 80, y: 77.3393}
+  m_AnchoredPosition: {x: -924.4, y: 505}
+  m_SizeDelta: {x: 47.999996, y: 51.022022}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196485085
 MonoBehaviour:
@@ -817,7 +817,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 196485087}
+  m_TargetGraphic: {fileID: 196485089}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -833,7 +833,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &196485087
+--- !u!222 &196485088
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196485083}
+  m_CullTransparentMesh: 1
+--- !u!114 &196485089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -846,15 +854,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1532932375, guid: c41663fb650e48e4f8ec6527a8ad0662, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -863,14 +871,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &196485088
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196485083}
-  m_CullTransparentMesh: 1
 --- !u!1 &255127474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 346480386, guid: e9213ff411be8ec4ab3c5cd43fe93516, type: 3}
+  m_Sprite: {fileID: 1697308817, guid: c41663fb650e48e4f8ec6527a8ad0662, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6186,7 +6186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 346480386, guid: e9213ff411be8ec4ab3c5cd43fe93516, type: 3}
+  m_Sprite: {fileID: 1437656608, guid: c41663fb650e48e4f8ec6527a8ad0662, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6762,6 +6762,18 @@ PrefabInstance:
     - target: {fileID: 7453499070917049043, guid: 3865075dd7a100a49a81e032dd4b547c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336694455270203957, guid: 3865075dd7a100a49a81e032dd4b547c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336694455270203957, guid: 3865075dd7a100a49a81e032dd4b547c, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336694455270203957, guid: 3865075dd7a100a49a81e032dd4b547c, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3865075dd7a100a49a81e032dd4b547c, type: 3}
@@ -9240,7 +9252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1049521264, guid: e9213ff411be8ec4ab3c5cd43fe93516, type: 3}
+  m_Sprite: {fileID: -1940498212, guid: c41663fb650e48e4f8ec6527a8ad0662, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
