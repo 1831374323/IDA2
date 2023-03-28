@@ -9,6 +9,13 @@ using System.Security.Cryptography;
 
 public class HandbookStatus : MonoBehaviour
 {
+    public enum State
+    {
+        enemy,
+        friend
+    }
+
+    public State state;
     public static HandbookStatus Instance { get; set; }
     // Start is called before the first frame update
     public int id = 0;

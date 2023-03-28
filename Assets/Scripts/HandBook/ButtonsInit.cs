@@ -15,6 +15,9 @@ public class ButtonsInit : MonoBehaviour
     public int _id;
     public GameObject Detailed;
     private DataTable CardDataTable;
+    [SerializeField] int ifEnemyContainer;
+    
+
     void Start()
     {  
         GameObject Btn = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Perfabs/Handbook/Button.prefab");//找到方格资源
@@ -24,6 +27,8 @@ public class ButtonsInit : MonoBehaviour
         Detailed.SetActive(false);//初始化界面
         for (int i = 0; i < num; i++)//初始化按钮
         {
+            if (Convert.ToInt32(CardDataTable.Rows[i][13]) == ifEnemyContainer)//判断是否是敌我
+            {
             GameObject btn = Instantiate(Btn);
             btn.name = Convert.ToString(CardDataTable.Rows[i][0]);//将按钮名字改成id
             btn.transform.SetParent(transform, false);//设置父物体
@@ -36,18 +41,20 @@ public class ButtonsInit : MonoBehaviour
             {
                 btn.GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + Convert.ToString(CardDataTable.Rows[i][0]));
             }
-            if (Resources.Load<Sprite>("CardIcon/" + Convert.ToString(CardDataTable.Rows[i][0])) == null)
-            {
-                btn.GetComponent<Button>().onClick.AddListener(OpenDetailedUI);
-                //btn.GetComponent<Button>().onClick.AddListener(() => { IdTransmit(0); });
-            }
-            else
-            {
                 int x = Convert.ToInt32(CardDataTable.Rows[i][0]);
                 btn.GetComponent<Button>().onClick.AddListener(OpenDetailedUI);
                 btn.GetComponent<Button>().onClick.AddListener(() => { IdTransmit(x); });//事件传参
-            }
+                    if (ifEnemyContainer == 1)
+                    {
+                        btn.GetComponent<Button>().onClick.AddListener(ChangeStateEnemy);
+                    }
+                    else
+                    {
+                        btn.GetComponent<Button>().onClick.AddListener(ChangeStateFriend);
+                    }
+                }
         }
+        
     }
 
     void OpenDetailedUI()
@@ -57,5 +64,14 @@ public class ButtonsInit : MonoBehaviour
     void IdTransmit(int a)
     {
         HandbookStatus.Instance.ChangeData(a);
+    }
+
+    private void ChangeStateEnemy()
+    {
+        HandbookStatus.Instance.state=HandbookStatus.State.enemy;
+    }
+    private void ChangeStateFriend()
+    {
+        HandbookStatus.Instance.state = HandbookStatus.State.friend;
     }
 }

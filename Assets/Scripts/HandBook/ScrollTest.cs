@@ -18,44 +18,33 @@ public class ScrollTest : MonoBehaviour
     private float value;
 
     //每个子物体的位置坐标（长度为子物体总量）
-    Vector2[] vc = new Vector2[7];
-    int[] CurrentId = new int[7];
-    int[] IDs;//记录总体id
+    private Vector2[] vc = new Vector2[7];
+    private int[] CurrentId = new int[7];
+    private int[] IDs;//记录总体id
+    private List<int> friendIDs;
+    private List<int> enemyIDs;
+
     //是否开始移动
     bool Move;
 
     DataTable CardDataTable;
     void Start()
     {
+        
         CardDataTable = SY_CSV.ReadFromResources("Data/CardData");//获取datatable
-        IDs = new int[CardDataTable.Rows.Count];
-        for (int i = 0; i < CardDataTable.Rows.Count; i++)//把值赋给id数组
+        GetAllIDs();
+        #region 初始化数据
+        if (HandbookStatus.Instance.state == HandbookStatus.State.friend)
         {
-            IDs[i] = Convert.ToInt32(CardDataTable.Rows[i][0]);
+            DataInit(friendIDs);
         }
-        for (int i = 0; i < IDs.Length; i++)
+        else
         {
-            if (IDs[i] == HandbookStatus.Instance.id)
-            {
-                int cur = (i - 3 + IDs.Length) % IDs.Length;
-                for (int j = 0; j < 7; j++)//给界面上赋上初值
-                {
-                    transform.GetChild(j).name = cur.ToString();
-                    if (Resources.Load<Sprite>("CardIcon/" + IDs[cur]) == null)
-                    {
-                        transform.GetChild(j).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + 0);
-                        CurrentId[j] = cur;
-                    }
-                    else
-                    {
-                        transform.GetChild(j).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + IDs[cur]);
-                        CurrentId[j] = cur;
-                    }
-                    cur = (cur + 1) % IDs.Length;
-                }
-                break;
-            }
+            DataInit(enemyIDs);
         }
+        
+
+        #endregion
 
 
         InitBtnPosition();
@@ -121,13 +110,17 @@ public class ScrollTest : MonoBehaviour
                     if (count == 0)
                     {
                         Move = false;
-                        MoveDownChange();
+                        UpdateChildPosition();
+                        if (HandbookStatus.Instance.state == HandbookStatus.State.friend) MoveDownChange(friendIDs);
+                        else  MoveDownChange(enemyIDs);
                         break;//在此处中断，下面代码不再执行
                     }//关闭循环
                     else
                     {
                         UpdateChildPosition();
-                        MoveDownChange();
+                        UpdateChildPosition();
+                        if (HandbookStatus.Instance.state == HandbookStatus.State.friend) MoveDownChange(friendIDs);
+                        else MoveDownChange(enemyIDs);
                     }
                         
                     }
@@ -169,13 +162,15 @@ public class ScrollTest : MonoBehaviour
                     if (count == 0)
                     {
                         Move = false;
-                        MoveUpChange();
+                        if(HandbookStatus.Instance.state == HandbookStatus.State.friend) MoveUpChange(friendIDs);
+                        else MoveUpChange(enemyIDs);
                         break;
                     }//关闭循环
                     else
                     {
                         UpdateChildPosition();
-                        MoveUpChange();
+                        if (HandbookStatus.Instance.state == HandbookStatus.State.friend) MoveUpChange(friendIDs);
+                        else MoveUpChange(enemyIDs);
                     }
                     
                     }
@@ -202,44 +197,44 @@ public class ScrollTest : MonoBehaviour
         }
     }
 
-    void MoveDownChange()//当按下down键时，滚动图片发生的改变
+    void MoveDownChange(List<int> list)//当按下down键时，滚动图片发生的改变
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            CurrentId[i] = (CurrentId[i] - 1 + IDs.Length) % IDs.Length;
+            CurrentId[i] = (CurrentId[i] - 1 + list.Count) % list.Count;
             transform.GetChild(i).name = CurrentId[i].ToString();
-            if (Resources.Load<Sprite>("CardIcon/" + IDs[CurrentId[i]]) == null)
+            if (Resources.Load<Sprite>("CardIcon/" + list[CurrentId[i]]) == null)
             {
                 transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + 0);
             }
             else
             {
-                transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + IDs[CurrentId[i]]);
+                transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + list[CurrentId[i]]);
             }
         }
 
         AddButtonEvent();
-        HandbookStatus.Instance.ChangeData(IDs[CurrentId[(transform.childCount - 1) / 2]]);
+        HandbookStatus.Instance.ChangeData(list[CurrentId[(transform.childCount - 1) / 2]]);
     }
 
-    void MoveUpChange()//当按下up键时，滚动图片发生的改变,必须得在协程里引用
+    void MoveUpChange(List<int> list)//当按下up键时，滚动图片发生的改变,必须得在协程里引用
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            CurrentId[i] = (CurrentId[i] + 1 + IDs.Length) % IDs.Length;
+            CurrentId[i] = (CurrentId[i] + 1 + list.Count) % list.Count;
             transform.GetChild(i).name = CurrentId[i].ToString();
-            if (Resources.Load<Sprite>("CardIcon/" + IDs[CurrentId[i]]) == null)
+            if (Resources.Load<Sprite>("CardIcon/" + list[CurrentId[i]]) == null)
             {
                 transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + 0);
             }
             else
             {
-                transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + IDs[CurrentId[i]]);
+                transform.GetChild(i).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + list[CurrentId[i]]);
             }
         }
 
         AddButtonEvent();
-        HandbookStatus.Instance.ChangeData(IDs[CurrentId[(transform.childCount - 1) / 2]]);
+        HandbookStatus.Instance.ChangeData(list[CurrentId[(transform.childCount - 1) / 2]]);
     }
 
     private void AddButtonEvent()
@@ -328,5 +323,62 @@ public class ScrollTest : MonoBehaviour
             //记录下所有当前子物体的起始位置
             vc[i] = transform.GetChild(i).localPosition;
         }
+    }
+
+    private void GetAllIDs()
+    {
+        IDs = new int[CardDataTable.Rows.Count];
+        enemyIDs = new List<int>();
+        friendIDs = new List<int>();
+        for (int i = 0; i < CardDataTable.Rows.Count; i++)//把值赋给id数组
+        {
+            IDs[i] = Convert.ToInt32(CardDataTable.Rows[i][0]);
+            if (Convert.ToInt32(CardDataTable.Rows[i][13]) == 1)
+            {
+                enemyIDs.Add(IDs[i]);
+            }
+            else
+            {
+                friendIDs.Add(IDs[i]);
+            }
+        }
+    }
+
+    private bool ifNeedChange(List<int> idList)//判断是否需要滚动循环,临时
+    {
+        if (idList.Count > 7) return true;
+        else return false;
+    }
+
+    private void DataInit(List<int> IDList)
+    {
+        for (int i = 0; i < IDList.Count; i++)
+        {
+            if (IDList[i] == HandbookStatus.Instance.id)
+            {
+                int cur = (i - 3 + IDList.Count) % IDs.Length;
+                for (int j = 0; j < 7; j++)//给界面上赋上初值
+                {
+                    transform.GetChild(j).name = cur.ToString();
+                    if (Resources.Load<Sprite>("CardIcon/" + IDList[cur]) == null)
+                    {
+                        transform.GetChild(j).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + 0);
+                        CurrentId[j] = cur;
+                    }
+                    else
+                    {
+                        transform.GetChild(j).GetComponent<Image>().sprite = Resources.Load<Sprite>("CardIcon/" + IDs[cur]);
+                        CurrentId[j] = cur;
+                    }
+                    cur = (cur + 1) % IDList.Count;
+                }
+                break;
+            }
+        }
+    }
+
+    private void EnemyInit(List<int> IDList)
+    {
+
     }
 }
